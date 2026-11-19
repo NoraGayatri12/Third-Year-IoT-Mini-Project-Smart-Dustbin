@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Dustbin IoT Dashboard</title>
+    <meta http-equiv="refresh" content="10">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white;
+            text-align: center;
+        }
+
+        header {
+            padding: 20px;
+            background: rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 32px;
+        }
+
+        .quote {
+            font-style: italic;
+            margin-top: 5px;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .container {
+            margin: 30px auto;
+            width: 90%;
+            max-width: 1000px;
+            background: white;
+            color: black;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 15px rgba(0,0,0,0.3);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background-color: #2c3e50;
+            color: white;
+            padding: 12px;
+        }
+
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background-color: #f2f2f2;
+        }
+
+        .status-full {
+            color: white;
+            background-color: red;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .status-normal {
+            color: white;
+            background-color: green;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .logout-btn {
+            text-decoration: none;
+            color: white;
+            background-color: #e74c3c;
+            padding: 8px 15px;
+            border-radius: 5px;
+            float: right;
+            margin-top: -40px;
+        }
+
+        .logout-btn:hover {
+            background-color: #c0392b;
+        }
+
+        img {
+            width: 80px;
+            margin-top: 10px;
+        }
+
+        footer {
+            margin-top: 30px;
+            padding: 10px;
+            background: rgba(0,0,0,0.3);
+            font-size: 13px;
+        }
+    </style>
+</head>
+
+<body>
+</div>
+
+<header>
+    <h1>Smart Dustbin IoT System</h1>
+    <div class="quote">"Clean City, Green City – Powered by IoT Technology"</div>
+    <img src="{{ url_for('static', filename='smart_dustbin.png') }}" alt="Dustbin Icon">
+    <a href="/logout" class="logout-btn">Logout</a>
+</header>
+
+<div class="container">
+
+    <h2>Live Dustbin Monitoring Dashboard</h2>
+
+    {% if bins and bins|length > 0 %}
+    <table>
+        <tr>
+            <th>Bin ID</th>
+            <th>Location</th>
+            <th>Level (%)</th>
+            <th>Status</th>
+            <th>Last Updated</th>
+        </tr>
+
+        {% for bin in bins %}
+        <tr>
+            <td>{{ bin.bin_id }}</td>
+            <td>{{ bin.location }}</td>
+            <td>{{ "%.2f"|format(bin.level) }}%</td>
+            <td>
+                {% if bin.status == 'FULL' %}
+                    <span class="status-full">FULL</span>
+                {% else %}
+                    <span class="status-normal">NORMAL</span>
+                {% endif %}
+            </td>
+            <td>{{ bin.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    {% else %}
+        <p><b>No dustbin data available.</b></p>
+    {% endif %}
+
+</div>
+
+<footer>
+    © 2026 Smart Dustbin IoT Project | Developed for Municipal Waste Management
+</footer>
+
+</body>
+</html>

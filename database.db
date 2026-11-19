@@ -1,0 +1,49 @@
+-- 1. Create Database
+CREATE DATABASE smart_dustbin;
+
+-- 2. Use Database
+USE smart_dustbin;
+
+-- -----------------------------
+-- USERS TABLE
+-- -----------------------------
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password VARCHAR(100) NOT NULL,
+    role VARCHAR(20) NOT NULL
+);
+
+-- -----------------------------
+-- DUSTBINS TABLE (UPDATED)
+-- -----------------------------
+CREATE TABLE dustbins (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    room_no VARCHAR(20) NOT NULL,
+    classroom VARCHAR(50) NOT NULL,
+    fill_percent INT DEFAULT 0,
+    status VARCHAR(20) DEFAULT 'NORMAL',
+    last_updated DATETIME DEFAULT CURRENT_TIMESTAMP,
+    cleaned BOOLEAN DEFAULT 0,
+    cleaned_time DATETIME NULL
+);
+
+-- -----------------------------
+-- SAMPLE USERS
+-- -----------------------------
+INSERT INTO users (name, email, password, role) VALUES
+('HOD User', 'hod@gmail.com', '1234', 'HOD'),
+('Cleaner User', 'cleaner@gmail.com', '1234', 'CLEANER'),
+('Student User', 'student@gmail.com', '1234', 'STUDENT');
+
+-- -----------------------------
+-- SAMPLE DUSTBINS (NEW STRUCTURE)
+-- -----------------------------
+INSERT INTO dustbins (room_no, classroom, fill_percent, status) VALUES
+('R01', 'SY-A', 20, 'NORMAL'),
+('R02', 'SY-B', 35, 'NORMAL'),
+('R03', 'TY-A', 50, 'NORMAL'),
+('R04', 'TY-B', 85, 'FULL'),
+('R05', 'BTECH-A', 10, 'NORMAL'),
+('R06', 'BTECH-B', 75, 'NORMAL');
